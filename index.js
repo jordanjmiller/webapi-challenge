@@ -9,13 +9,13 @@ server.get('/', (req, res) => {
 });
 
 
-// const postRouter = require('./posts/postRouter.js');
+const projectsRouter = require('./projects/projectsRouter.js');
 
-// server.use('/api/posts/', postRouter);
+server.use('/api/projects/', projectsRouter);
 
-// const userRouter = require('./users/userRouter.js');
+const actionsRouter = require('./actions/actionsRouter.js');
 
-// server.use('/api/users/', userRouter);
+server.use('/api/actions/', actionsRouter);
 
 
 
