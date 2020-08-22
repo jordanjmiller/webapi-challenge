@@ -1,14 +1,38 @@
-/*
-play this: https://www.youtube.com/watch?v=d-diB65scQU
+const express = require('express');
 
-Sing along:
+const server = express();
+const cors = require('cors');
+server.use(cors());
+server.use(logger);
+server.use(express.json());
 
-here's a little code I wrote, please read the README word for word, don't worry, you got this
-in every task there may be trouble, but if you worry you make it double, don't worry, you got this
-ain't got no sense of what is REST? just concentrate on learning Express, don't worry, you got this
-your file is getting way too big, bring a Router and make it thin, don't worry, be crafty
-there is no data on that route, just write some code, you'll sort it out… don't worry, just API…
-I need this code, just don't know where, perhaps should make some middleware, don't worry, just API
+server.get('/', (req, res) => {
+  res.send(`<h2>server is running</h2>`);
+});
 
-Go code!
-*/
+
+const projectsRouter = require('./projects/projectsRouter.js');
+
+server.use('/api/projects/', projectsRouter);
+
+const actionsRouter = require('./actions/actionsRouter.js');
+
+server.use('/api/actions/', actionsRouter);
+
+
+
+//custom middleware
+
+function logger(req, res, next) {
+  // console.log(req);
+  console.log(
+    `[${new Date().toISOString()}] ${req.method} to ${req.url} from ${req.get(
+      'Origin'
+    )}`
+  );
+
+  next();
+}
+
+const port = 8001;
+server.listen(port, () => console.log(`api running on port ${port}`));
